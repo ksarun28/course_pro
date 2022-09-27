@@ -1,0 +1,10 @@
+<div >
+    <label for="">Semester</label><br>
+    
+    <select name="smtr" id="seme" onchange="selectsem()">
+        <option value="">Semester</option>
+        {% for sem in sem_num %}
+            <option value="{{sem}}">{{sem}}</option>
+        {% endfor %}      
+    </select>
+</div>

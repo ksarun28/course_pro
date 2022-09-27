@@ -1,0 +1,32 @@
+<div> 
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Student Name</th>
+                <th colspan="4">Subjects</th>
+            </tr>
+            <tr>
+                {% for sub in subject %}
+                <th >{{sub.sub_name}}</th>
+                {% endfor %}
+            </tr>
+         </thead>
+         <tbody>
+                {% for mark in mark %}
+                <tr>
+                    <td>{{mark.stud_id.stud_name}}</td>
+                    <td>{{mark.sub1}}</td>
+                    <td>{{mark.sub2}}</td>
+                    <td>{{mark.sub3}}</td>
+                    <td>{{mark.sub4}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                {% for i in tot_mark %}
+                    <td>{{i}}</td>
+                {% endfor %}
+           
+         </tbody>
+    
+    </table>
+</div>

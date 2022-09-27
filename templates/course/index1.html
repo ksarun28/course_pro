@@ -1,0 +1,29 @@
+
+    <div >
+        <label for=" "> Semester</label>
+        <form method='GET' action="">
+            <select name="sem_no" id="sem_select" onchange="selectsem()">
+                <option value=" course" disabled=true selected>Semester</option>
+                {% for sem in sem_num %}
+                <option value="{{sem}}">{{sem}}</option>
+               {% endfor %}      
+            </select>
+        </form>    
+    </div>
+
+<script type="text/javascript">
+    function selectsem(){
+        var xhttp=new XMLHttpRequest();
+        sem=document.querySelector("#sem_select")
+        sem_no=sem.options[sem.selectedIndex].value;
+        co=document.querySelector("#select")
+        cs_id=co.options[co.selectedIndex].value;
+        xhttp.onreadystatechange=function(){
+            if(this.readyState == 4 && this.status == 200){
+                document.getElementById("content").innerHTML=this.responseText
+            }
+        };
+        xhttp.open("GET","{% url 'data_table'%}?sem_no="+sem_no+"&c_id="+cs_id,true);
+        xhttp.send();
+    }
+</script>

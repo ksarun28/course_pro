@@ -1,0 +1,88 @@
+
+{% extends "course/layouts/main.html" %}
+
+{% block content %}
+<style>
+    table{width: 100%;}
+    table,tr,th,td{
+        border: 2px solid rgb(22, 35, 2);
+        text-align: center;
+        
+    }
+</style>
+<div class="container">
+    <h1>Welcome</h1>
+    <label for=""> Course</label>
+    <form method='GET' action="">
+        <select name="c_id" id="select" onchange="selectcourse()">
+            <option value=" course" disabled=true selected>All</option>
+            {% for i in course  %}
+                    <option value="{{i.course_id}}">{{i.course_name}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <div  id="sem_select"><label for="">Semester</label><br>
+            <select name="smtr" id=""><option value="">Semester</option></select></div>
+        
+    </form>
+
+</div>
+<div class="container" ><p id="demo"></p></div>
+
+
+<div class="container" id="demo1">
+    <table>
+            <thead>
+                    <tr>
+                        <th rowspan="2">Student Name</th>
+                        <th colspan="4">Subjects</th>
+                        <th colspan="2">Tot Marks</th>
+                    </tr>
+                    <tr>
+                        <th >Sub1</th>
+                        <th >Sub2</th>
+                        <th >Sub1</th>
+                        <th >Sub2</th>
+                    </tr>
+            </thead>
+    </table>
+</div>
+<script>
+    function selectcourse()
+    {
+           var xhttp = new XMLHttpRequest();
+        var co=document.getElementById("select");
+        var cs_id=co.options[co.selectedIndex].value;
+        xhttp.onreadystatechange = function()
+        {
+            if(this.readyState== 4 && this.status == 200)
+            {
+                document.getElementById("sem_select").innerHTML=this.responseText;
+            }
+        };
+        xhttp.open("GET","{% url 'sem' %}?c_id="+cs_id,true);
+        xhttp.send();
+    }
+
+    function selectsem()
+    {
+        var xhttp = new XMLHttpRequest();
+        var co=document.getElementById("select");
+        var cs_id=co.options[co.selectedIndex].value;
+        var a=document.getElementById("seme");
+        var b=a.options[a.selectedIndex].value
+        xhttp.onreadystatechange = function()
+        {
+            if(this.readyState== 4 && this.status == 200)
+            {
+                document.getElementById("demo1").innerHTML=this.responseText;
+            }
+        };
+        xhttp.open("GET","{% url 'data' %}?smtr="+b+"&c_id="+cs_id,true);
+        xhttp.send();
+    }
+
+
+</script>
+{% endblock content %}
+
